@@ -25,6 +25,9 @@ class CreativeEditModel implements \JsonSerializable
 
     /** @var ?array<string> $okveds */
     protected ?array $okveds;
+
+    /** @var ?array<string> $kktuCode */
+    protected ?array $kktuCode;
     protected ?string $targetAudienceDescription;
     protected bool $isReadyForErir;
     protected int $initialContractId;
@@ -39,6 +42,7 @@ class CreativeEditModel implements \JsonSerializable
         int $initialContractId,
         array $urls = [],
         ?array $okveds = [],
+        ?array $kktuCode = [],
         ?string $targetAudienceDescription = null
     ) {
         $this->type = $type;
@@ -50,6 +54,8 @@ class CreativeEditModel implements \JsonSerializable
         $this->urls = $urls;
         $okveds && (function(string ...$_) {})( ...$okveds);
         $this->okveds = $okveds;
+        $kktuCode && (function(string ...$_) {})( ...$kktuCode);
+        $this->kktuCode = $kktuCode;
         $this->targetAudienceDescription = $targetAudienceDescription;
         $this->isReadyForErir = $isReadyForErir;
         $this->initialContractId = $initialContractId;
@@ -94,6 +100,14 @@ class CreativeEditModel implements \JsonSerializable
     public function getOkveds(): ?array
     {
         return $this->okveds;
+    }
+
+    /**
+     * @return ?array<string>
+     */
+    public function getKktuCode(): ?array
+    {
+        return $this->kktuCode;
     }
 
     public function getTargetAudienceDescription(): ?string
@@ -149,6 +163,7 @@ class CreativeEditModel implements \JsonSerializable
                 break;
 
             case "okveds":
+            case "kktuCode":
                 yield fn ($array) => array_map(
                     \Closure::fromCallable('strval'),
                     (array)$array
@@ -194,6 +209,7 @@ class CreativeEditModel implements \JsonSerializable
             $constructorParams["initialContractId"],
             $constructorParams["urls"],
             $constructorParams["okveds"] ?? null,
+            $constructorParams["kktuCode"] ?? null,
             $constructorParams["targetAudienceDescription"] ?? null
         );
     }

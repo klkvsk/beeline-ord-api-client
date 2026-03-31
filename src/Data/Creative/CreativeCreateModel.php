@@ -26,6 +26,7 @@ class CreativeCreateModel extends CreativeEditModel implements \JsonSerializable
         int $initialContractId,
         array $urls = [],
         ?array $okveds = [],
+        ?array $kktuCode = [],
         ?string $targetAudienceDescription = null,
         ?int $organizationId = null
     ) {
@@ -39,6 +40,7 @@ class CreativeCreateModel extends CreativeEditModel implements \JsonSerializable
             $initialContractId,
             $urls,
             $okveds,
+            $kktuCode,
             $targetAudienceDescription
         );
         $this->organizationId = $organizationId;
@@ -118,6 +120,7 @@ class CreativeCreateModel extends CreativeEditModel implements \JsonSerializable
             $constructorParams["initialContractId"],
             $constructorParams["urls"],
             $constructorParams["okveds"] ?? null,
+            $constructorParams["kktuCode"] ?? null,
             $constructorParams["targetAudienceDescription"] ?? null,
             $constructorParams["organizationId"] ?? null
         );

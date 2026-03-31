@@ -25,6 +25,9 @@ class CreativeViewModel extends CreativeListModel implements \JsonSerializable
 
     /** @var ?array<string> $okveds */
     protected ?array $okveds;
+
+    /** @var ?array<string> $kktuCode */
+    protected ?array $kktuCode;
     protected ?string $targetAudienceDescription;
     protected int $initialContractId;
     protected ?int $organizationId;
@@ -46,6 +49,7 @@ class CreativeViewModel extends CreativeListModel implements \JsonSerializable
         ?bool $isTelegram = null,
         array $urls = [],
         ?array $okveds = [],
+        ?array $kktuCode = [],
         ?string $targetAudienceDescription = null,
         ?int $organizationId = null
     ) {
@@ -69,6 +73,8 @@ class CreativeViewModel extends CreativeListModel implements \JsonSerializable
         $this->urls = $urls;
         $okveds && (function(string ...$_) {})( ...$okveds);
         $this->okveds = $okveds;
+        $kktuCode && (function(string ...$_) {})( ...$kktuCode);
+        $this->kktuCode = $kktuCode;
         $this->targetAudienceDescription = $targetAudienceDescription;
         $this->initialContractId = $initialContractId;
         $this->organizationId = $organizationId;
@@ -113,6 +119,14 @@ class CreativeViewModel extends CreativeListModel implements \JsonSerializable
     public function getOkveds(): ?array
     {
         return $this->okveds;
+    }
+
+    /**
+     * @return ?array<string>
+     */
+    public function getKktuCode(): ?array
+    {
+        return $this->kktuCode;
     }
 
     public function getTargetAudienceDescription(): ?string
@@ -178,6 +192,7 @@ class CreativeViewModel extends CreativeListModel implements \JsonSerializable
                 break;
 
             case "okveds":
+            case "kktuCode":
                 yield fn ($array) => array_map(
                     \Closure::fromCallable('strval'),
                     (array)$array
@@ -239,6 +254,7 @@ class CreativeViewModel extends CreativeListModel implements \JsonSerializable
             $constructorParams["isTelegram"] ?? null,
             $constructorParams["urls"],
             $constructorParams["okveds"] ?? null,
+            $constructorParams["kktuCode"] ?? null,
             $constructorParams["targetAudienceDescription"] ?? null,
             $constructorParams["organizationId"] ?? null
         );

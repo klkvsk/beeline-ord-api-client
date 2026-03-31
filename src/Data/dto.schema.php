@@ -153,6 +153,12 @@ return dto\schema(
                 dto\field('url', t\string(), true),
             ]
         ),
+        dto\object(
+            name: 'Creative\\KktuCode',
+            fields: [
+                dto\field('code', t\string(), true),
+            ]
+        ),
 
         dto\object(
             name: 'Creative\\CreativeEditModel',
@@ -163,8 +169,7 @@ return dto\schema(
                 dto\field('isSocial', t\bool(), true),
                 dto\field('isNative', t\bool(), true),
                 dto\field('urls', t\list_(t\object('Creative\\CreativeUrl')), true),
-                dto\field('okveds', t\list_(t\string())),
-                dto\field('kktuCode', t\list_(t\string())),
+                dto\field('kktuCode', t\list_(t\object('Creative\\KktuCode'))),
                 dto\field('targetAudienceDescription', t\string()),
                 dto\field('isReadyForErir', t\bool(), true),
                 dto\field('initialContractId', t\int(), true),

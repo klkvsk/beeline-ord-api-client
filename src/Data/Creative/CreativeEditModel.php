@@ -23,10 +23,7 @@ class CreativeEditModel implements \JsonSerializable
     /** @var array<CreativeUrl> $urls */
     protected array $urls;
 
-    /** @var ?array<string> $okveds */
-    protected ?array $okveds;
-
-    /** @var ?array<string> $kktuCode */
+    /** @var ?array<KktuCode> $kktuCode */
     protected ?array $kktuCode;
     protected ?string $targetAudienceDescription;
     protected bool $isReadyForErir;
@@ -41,7 +38,6 @@ class CreativeEditModel implements \JsonSerializable
         bool $isReadyForErir,
         int $initialContractId,
         array $urls = [],
-        ?array $okveds = [],
         ?array $kktuCode = [],
         ?string $targetAudienceDescription = null
     ) {
@@ -52,9 +48,7 @@ class CreativeEditModel implements \JsonSerializable
         $this->isNative = $isNative;
         $urls && (function(CreativeUrl ...$_) {})( ...$urls);
         $this->urls = $urls;
-        $okveds && (function(string ...$_) {})( ...$okveds);
-        $this->okveds = $okveds;
-        $kktuCode && (function(string ...$_) {})( ...$kktuCode);
+        $kktuCode && (function(KktuCode ...$_) {})( ...$kktuCode);
         $this->kktuCode = $kktuCode;
         $this->targetAudienceDescription = $targetAudienceDescription;
         $this->isReadyForErir = $isReadyForErir;
@@ -95,15 +89,7 @@ class CreativeEditModel implements \JsonSerializable
     }
 
     /**
-     * @return ?array<string>
-     */
-    public function getOkveds(): ?array
-    {
-        return $this->okveds;
-    }
-
-    /**
-     * @return ?array<string>
+     * @return ?array<KktuCode>
      */
     public function getKktuCode(): ?array
     {
@@ -162,10 +148,9 @@ class CreativeEditModel implements \JsonSerializable
                 );
                 break;
 
-            case "okveds":
             case "kktuCode":
                 yield fn ($array) => array_map(
-                    \Closure::fromCallable('strval'),
+                    fn ($data) => call_user_func([ '\BeelineOrd\Data\Creative\KktuCode', 'create' ], $data),
                     (array)$array
                 );
                 break;
@@ -208,7 +193,6 @@ class CreativeEditModel implements \JsonSerializable
             $constructorParams["isReadyForErir"],
             $constructorParams["initialContractId"],
             $constructorParams["urls"],
-            $constructorParams["okveds"] ?? null,
             $constructorParams["kktuCode"] ?? null,
             $constructorParams["targetAudienceDescription"] ?? null
         );

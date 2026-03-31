@@ -25,7 +25,6 @@ class CreativeCreateModel extends CreativeEditModel implements \JsonSerializable
         bool $isReadyForErir,
         int $initialContractId,
         array $urls = [],
-        ?array $okveds = [],
         ?array $kktuCode = [],
         ?string $targetAudienceDescription = null,
         ?int $organizationId = null
@@ -39,7 +38,6 @@ class CreativeCreateModel extends CreativeEditModel implements \JsonSerializable
             $isReadyForErir,
             $initialContractId,
             $urls,
-            $okveds,
             $kktuCode,
             $targetAudienceDescription
         );
@@ -119,7 +117,6 @@ class CreativeCreateModel extends CreativeEditModel implements \JsonSerializable
             $constructorParams["isReadyForErir"],
             $constructorParams["initialContractId"],
             $constructorParams["urls"],
-            $constructorParams["okveds"] ?? null,
             $constructorParams["kktuCode"] ?? null,
             $constructorParams["targetAudienceDescription"] ?? null,
             $constructorParams["organizationId"] ?? null
